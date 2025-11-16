@@ -1,0 +1,1758 @@
+Day-21
+--------
+Selenium WebDriver
+-----------------
+
+What is selenium webdriver?
+------
+1) WebDriver is one of the component in selenium.
+2) WebDriver is a java interface.
+3) WebDriver is an API( Application Programming interface)
+
+
+
+WebDriver (I)-- RemoteWebDriver (C)---->ChromeDriver , FirefoxDriver, EdgeDriver etc..
+
+Environment setup
+--------------------
+1) Downloading jars files and attaching them to Java project.(Manually) - Not recomended
+------------
+-> created new java project
+-> downloaded webdriver jars(.zip) and extracted.
+-> attach jars to java project.
+
+
+2) Creating Maven project   ( Recomended )
+
+-->Created a new Maven project in eclipse
+--> addedd webdriver dependecy in pom.xml--> updated
+
+
+
+Stable: 4.18.1 (February 19, 2024)
+
+
+pom.xml ---> dependencies
+
+https://mvnrepository.com/
+web driver dependecy link: https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+
+
+Assignment
+--------------
+1) Launch browser (chrome)
+2) Open URL  https://demo.nopcommerce.com/
+3) Validate title should be   "nopCommerce demo store"
+4) close page
+
+**Note: 
+Opera browser supported till selenium 4.1.0.
+Above 4.1.0 , Opera do not support.
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+Day-22
+---------
+id
+name
+linkText
+partialLinkText
+
+TagName
+classname
+
+CSS selector
+XPath
+
+
+<input type="text" name="search" value="" placeholder="Search" class="form-control form-control-lg">
+
+input - tagname
+type, name, value, placeholder ---> attributes/properties
+
+name="search"
+name--> attribute
+search ---> value
+
+
+findElement(By.name("search")) ----> WebElement
+
+WebElement searchBox=driver.findElement(By.name("search"));
+
+
+Ctrl +Shift+O  --> importing packages.
+
+
+String s="welcome";
+s.lenght()
+
+"welcome".lenght();
+
+
+
+Employee emp=new Employee();
+emp.display();
+
+new Employee().display();
+
+
+<a href="http://www.xyz.com">Click</a>
+
+booklets
+
+By.partialLinkText("lets")
+
+
+findElement(loc) Vs findElements(loc)
+----------------------------
+
+Scenario1: Locator is smatching with single web element
+
+findElement(loc) ----> single web element ---> WebElement
+findElements(loc) ---> single web element ----> List<WebElement>
+
+Sceanrio2 : Locator is matching with multiple web elements
+
+findElement(loc) ---> single web element --> WebElement
+findElements(loc) ---> multiple web elements ---> List<WebElement>
+
+Scenario3: Locator is not matching with any element.
+
+findElement(loc) ----> NosuchElementException
+findElements(loc)----->will not throw any exception. Returns 0 
+
+
+Assignment
+---------------
+Open application "https://www.demoblaze.com/index.html"
+
+1) Total number of links 
+2) Total number of images
+3) Click on Any product link using linkText /partialLinkText
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-23
+----------
+
+CSS Selector
+--
+
+CSS - Cascading Style Sheets
+
+
+tag id			tag#id
+tag class		tag.classname
+tag attribute   	tag[attribute="value"]
+tag class attribute 	tag.classname[attribute="value"]
+
+
+
+Assingment
+----
+https://demo.opencart.com/
+
+try to write css locators to identify elements.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-24
+---------
+XPath
+----
+XPath is an address of the element.
+
+DOM - Document Object Model
+
+2 types of xpath
+-----------
+1) Absolute xpath(full xpath)
+	Ex: 	/html/body/header/div/div/div[2]/div/input
+
+2) Relative xpath(partial xpath)
+	Ex: //*[@name="search"]
+
+Which xpath will be prefered?
+Relative xpath.
+
+
+Difference between Absolute & Relative xpaths?
+------------------
+1) Absolute xpath starts with  /     ---> represents root node
+  Relative xpath starts with  //
+
+2) Abosulate xpath do not use attributes
+  Relative xpath works with attribute
+
+3) Absolute xpath traverse through each node till it finds element
+   Relative xpath directly jump and find the element by using attribute
+
+Relative xpath
+----------------
+1) Automatically - Devtools, selectorshub
+2) Manually(own xpath) 
+
+
+//img[@title='Your Store']
+/html[1]/body[1]/header[1]/div[1]/div[1]/div[1]/div[1]/a[1]/img[1]
+
+
+syntax:
+----
+//tagname[@attribute='value']
+//*[@attribute='value']
+
+//img[@title='MacBook']
+
+
+Xpath with single attribute
+----
+driver.findElement(By.xpath("//input[@placeholder='Search']")).sendKeys("TShirts");
+	
+
+xpath with multiple attributes
+-------
+//input[@name='search'][@placeholder='Search']
+
+xpath with 'and'  'or' operators
+-------------------------
+
+
+//input[@name='search' and @placeholder='Search']
+//input[@name='search' or @placeholder='Search']
+
+xpath with inner text - text()
+-----------
+//a[text()='Desktops']
+//a[text()='MacBook']
+
+
+<a href="https://xyz.com"> Click Me </a>
+	
+linktext = yes
+inner text = yes
+
+<div>welcome</div>
+linktext= no
+innertext= yes
+
+
+xpath with contains()
+---------------------
+//input[contains(@placeholder,'Sea')]
+
+
+handling dynamic attributes
+-------------
+
+//*[@id='start' or @id='stop']
+//*[contains(@id,'st')]
+//*[starts-with(@id,'st')]
+
+
+name=xyz001  xyz002   xyz 003 xyz004 xyz001 xyz 002
+
+//*[contains(@name,'xyz')]
+//*[contains(@name,'00')]
+//*[starts-with(@name,'xyz')]
+
+
+name= 1xyz 2xyz 3xyz 4xyz 1xyz
+	//*[contains(@name,'xyz')]
+
+
+name=101xyz  201xyz  301xyz  401xyz
+	//*[contains(@name,' xyz')]
+	//*[contains(@name,' 01')]
+
+chained xpath
+---------------
+//div[@id='logo']/a/img
+
+
+
+<div></div>
+
+//div[contains(text(),'')]
+//[contains(.,’ ‘)] 
+-------------------------------------------------------------------------------------------------------------------------------------------
+Day-25
+---------
+XPath axis
+--
+self
+parent
+child
+ancestor
+descendent
+following
+preceding
+following-sibling
+preceding-sibling
+
+
+Xpath Axis: https://youtu.be/BRzlyGXx13Q?list=PLUDwpEzHYYLut2OnS4GlY7fiSAabRmsz3
+
+Selectorhub tools: https://www.youtube.com/playlist?list=PLUDwpEzHYYLv8wElK5Pmtuowv-j4AKxQF
+
+Relative locators: https://youtu.be/prXw_lypLTs
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-26
+---------
+1) get methods
+2) conditional methods
+3) browser methods 
+4) navigational methods
+5) wait methods
+
+
+get methods - we can access these methods through webdriver instance
+----------
+get(url) - opens the url on the browser
+getTitle() - returns title of the page
+getCurrentUrl() - retuns URL of the page
+getPageSource()- returns source code of the page
+getWindowHandle() - returns ID of the single Browser window
+getWindowHandles() - retuns ID's of the multiple browser windows
+
+conditional methods - access these commands thorugh WebElement
+-----------------------
+retuns boolean value( true/false)
+
+isDisplayed() - we can check display status of the element
+isEnabled() - we can check enable/disable status of the element/operational element
+isSelected() - we can use to check the element is selected or not
+
+browser methods
+---------
+close() - close single browser
+quit() - close multiple browsers
+
+
+Assignment
+---------
+https://testautomationpractice.blogspot.com/
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-27
+-----------
+wait methods
+------------
+
+Synchronization
+
+NoSuchElementException - Element is not present on the page. Synchronization.
+ElementNotFoundException - Locator is in-correct
+
+
+
+Thread.sleep(time in ms)
+--------
+Adv:
+----
+1) easy to use
+
+DisAdv
+-------------
+1) if the time is not suffitient then you will get exception
+2) it will wait for maximum time out. this will reduce the performace script.
+3) multiple times 
+
+
+implicit wait
+-----------
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+Adv:
+1) single time/one statement
+2) it will not wait till maximum time if the element is availble
+3) Applicable for all the elements
+4) easy to use
+
+Disadvantge:
+1) if the time is not suffitient then you will get exception
+
+
+explicit wait
+-------------
+works based on the time and condition
+
+declaration
+use
+
+points
+---------
+1) Conditional based, it will work more effectively.
+2) finding element is inclusive
+3) it will wait for condition to be true, then consider the time
+4) we need to write multiple statements for multiple elements 
+
+conditions
+--------
+alertIsPresent()
+elementSelectionStateToBe()
+elementToBeClickable()
+elementToBeSelected()
+frameToBeAvaliableAndSwitchToIt()
+presenceOfAllElementsLocatedBy()
+presenceOfElementLocated()
+textToBePresentInElement()
+textToBePresentInElementLocated()
+textToBePresentInElementValue()
+titleIs()
+titleContains()
+visibilityOf()
+visibilityOfAllElements()
+visibilityOfAllElementsLocatedBy()
+visibilityOfElementLocated()
+
+
+Fluent wait
+--------------
+ Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+       .withTimeout(Duration.ofSeconds(time))
+       .pollingEvery(Duration.ofSeconds(time))
+       .ignoring(NoSuchElementException.class);
+
+
+   WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
+     public WebElement apply(WebDriver driver) {
+       return driver.findElement(By.id("foo"));
+     }
+   });
+
+
+
+
+driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-28
+--------
+
+Navigational commands
+----
+navigate().to(url)
+navigate().back()
+navigate().forward()
+navigate().refresh()
+
+
+
+driver.get()  ---> accepts URL in string format only
+driver.navigate().to() ---> accepts URL in the string format & URL object format.
+
+
+getWindowHandle()
+getWindowHandles()
+
+
+driver.switchTo().window(windowID)
+
+
+Assignment
+----------
+https://testautomationpractice.blogspot.com/
+
+1) provide some string search for it
+2) count number of links
+3) click on each link using for loop
+4) get window ID's for every browser window
+5) close specific browser window
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-29
+-------
+Check boxes 
+Dropdowns
+----------
+1) Drop down having select tag in DOM.
+2) DropDown not having select tag in DOM ( input/div) - Bootstrap dropdown
+3) Auto Suggest drop down ( Dynamic)
+
+Select class
+
+
+Assignment
+-------
+1) Handle dropdown without using Select Class 
+
+Select Country & State
+https://phppot.com/demo/jquery-dependent-dropdown-list-countries-and-states/
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+Day-30
+-------
+Alerts
+-------
+
+accept()
+
+driver.switchTo().alert().accept()   // close alert box using ok button
+driver.switchTo().alert().dismiss()  // close alert box using cancel button
+driver.switchTo().alert().getText() // capture text value from alert
+driver.switchTo().alert().sendKeys()  // pass the text into inputbox inside the alert
+
+how to capture alert box without using switcho().alert() ?
+Ans: using explicit wait
+
+
+frames
+---------
+driver.switchTo().frame(name)
+driver.switchTo().frame(id)
+driver.switchTo().frame(WebElement)
+driver.switchTo().frame(index)
+
+driver.switchTo().defaultContent();
+inner frame/nested frame
+
+
+
+Assingments
+----------
+1) click on login then handle alert : https://mypage.rediff.com/login/dologin
+
+2) https://ui.vision/demo/webtest/frames/
+1) switch to  5th frame
+2) click on link  - opens new iframe
+3) switch to inner frame 
+4)  check logo presence in the inner frame.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Day-31
+--------
+Dropdown box
+-------------
+1) select dropdown
+2) Bootstrap dropdown
+3) hidden drop down
+
+
+select dropdown
+-----------------
+
+Select
+
+selectByVisibleText()
+selectByvalue()
+selectByIndex()
+
+<Select id="country">
+ <option value="in">India<option>
+ 
+
+getOptions() --- returns all the options from the dropdown as a WebElement.
+
+
+Assignment
+---------------
+1) Handle country dropdown with/without  using Select class:
+       https://phppot.com/demo/jquery-dependent-dropdown-list-countries-and-states/
+			a) count total number of options
+			b) print all the options 
+		       c) select one option
+
+2) Hidden dropdown
+Login to OrangeHRM--> pim--> employee status
+
+
+3) https://testautomationpractice.blogspot.com/
+	colors multi select box
+
+4) Google search box 
+  - find number of options search
+ - select one option.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-32
+---------
+Web Tables
+---------
+1) static web table
+2) Dynamic web table
+3) table with pagination
+
+
+r=2
+c=3
+
+//table[@name='BookTable']//tr["+r+"]//td["+c+"]
+
+
+Assignment
+---------
+1) https://blazedemo.com/
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-33
+-------
+Dynamic table with pagination
+---------
+
+String s="Showing 1 to 10 of 19081 (13232 Pages)"
+
+
+
+
+s.substring(s.indexOf("(")+1,s.indexOf("Pages")-1)   --> 1909
+
+Assignment
+-----
+tables
+----
+
+1) Orangehrm table:  
+	https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers
+
+2) Dynamic Table
+	https://practice.expandtesting.com/dynamic-table
+
+3) Paginatin table
+	https://testautomationpractice.blogspot.com/
+
+
+4) Pagination & Dynamic table ( Web Scrapping)
+	https://money.rediff.com/gainers/bse/daily/groupall
+
+	Test case 1:
+	------------
+	1) Read All data on Daily, Weekly and Monthly wise (From Gainers)
+	2) Print Company, Group and %change. 
+	
+	Test case 2:
+	------------
+	1) Read data from all the groups on Daily, Weekly and Monthly wise (From Gainers)
+	2) In each group print company name which is having lowest %Change 
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-35
+--------
+Mouse actions
+-------------
+
+Mouse hover --- moveToElement(element)
+right click --   contextClick(element)
+double click -- doubleClick(element)
+drag and drop  -- dragAndDrop(source, target)
+
+
+
+
+Actions - pre defined class provided in selenium
+
+
+build() - create an action
+perform() - complete an action
+
+getText()  Vs getAttribute(attribute)
+---------------------
+
+<input id="xyz"> welcome </input>
+
+getText() --> returns the inner text   --> welcome
+getAttribute("id") -- returns the value of attribute ---> xyz
+
+
+<input value="welcome"></input>
+getAttribute("value") ---> welcome
+
+
+getText() ----> returns inner text of the web element
+getAttribute(attribute)--->> returns value of attribute
+
+
+
+Actions  Vs Action
+---------------
+
+Actions -- class, will be used to perform mouse actions,
+Action --- interface, will be used to store created actions.
+
+
+Assignments
+-------
+1) double click & Drag and drop
+	https://testautomationpractice.blogspot.com/
+2) drag and drop
+http://demo.guru99.com/test/drag_drop.html
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-36
+---------
+Slider 
+
+dragAndDropBy(Element, x, y)
+
+
+Keyboard actions - Actions 
+
+keyDown()
+keyUp()
+
+
+Ex: Ctrl+shift+A
+act.keyDown(Keys.CONTROL).keyDown(Keys.SHIFT).sendKeys("A").keyUp(Keys.SHIFT).keyUp(Keys.CONTROL).perform();
+
+Ex: Enter
+act.keyDown(Keys.ENTER).keyUp(Keys.ENTER).perform();
+
+//Control+Reglink
+act.keyDown(Keys.CONTROL).click(regLink).keyUp(Keys.CONTROL).perform();
+---------------------------------------------------------------------------------------------------------------------------------------------
+Day-37
+---------
+JavascriptExecutor
+--------------
+
+JavascriptExecutor   - interface
+
+executeScript() - we can execute javascript statements
+
+sendKeys()
+click()
+
+
+
+Scrolling bar
+---
+
+Upload files
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-38
+--------
+How to capture screenshots
+-----
+1) full page
+2) specific area of the page
+3) web element
+
+
+ChromeOptions
+EdgeOptions
+FirefoxOptions
+etc...
+
+ChromeOptions
+----------
+Headless testing
+-------------------------------------------------------
+ChromeOptions options=new ChromeOptions();
+options.addArguments("--headless=new"); 
+
+advantages
+-----
+1) we can do multiple tasks( since execution happend backend)
+2) faster execution
+
+disadvantage
+-----------
+1) user cannot see the actions on the page. so he cannot understand flow/functionality of the test.
+
+
+SSL Handling
+----------------------------------------------------		
+		ChromeOptions options=new ChromeOptions();
+		options.setAcceptInsecureCerts(true); // accepts SSL certificates
+
+
+to remove "Chrome is being controlled by automated test software"
+-------------------------------------------------------------------
+	ChromeOptions options=new ChromeOptions();
+	options.setExperimentalOption("excludeSwitches", new String[] {"enable-automation"});
+			
+
+To run the tests in Incognito mode
+------------------------------------
+ChromeOptions options=new ChromeOptions();
+options.addArguments("--incognito");
+
+
+Enable browser extension in run time
+----------------------------------
+step 1: Add CRX Extractor/Downloader to chrome Browser  ( manually)
+Step2 : Add SelectorsHub plugin to chrome browser (manually)
+step3 : Capture crx file for selectorshub extension
+Step4: pass crx file path in automation script in Chrome Options
+
+
+ChromeOptions options=new ChromeOptions();
+options.addExtensions(new File("C:\\Drivers\\SelectorsHub.crx"));
+
+
+How to block ads on the page
+----------------------------------
+uBlock-Origin
+AdBlocker
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-39
+--------
+Broken links
+--------
+
+
+1) Link    href="https://xyz.com"
+
+2) https://xyz.com ---> server ---> status code
+
+3)  status code>=400   broken link
+ status code <400   not a broken link
+	
+Shandow DOM
+-------------------
+XPath cannot handle shadow dom elements.
+Only CSS can handle shadow dom elements.
+
+
+//1) This Element is inside single shadow DOM.
+
+SearchContext shadow = driver.findElement(By.cssSelector("#shadow-root")).getShadowRoot();
+Thread.sleep(1000);
+shadow.findElement(By.cssSelector("#shadow-element"));
+
+//2) This Element is inside 2 nested shadow DOM.
+
+SearchContext shadow0 = driver.findElement(By.cssSelector("#shadow-root")).getShadowRoot();
+Thread.sleep(1000);
+SearchContext shadow1 = shadow0.findElement(By.cssSelector("#inner-shadow-dom")).getShadowRoot();
+Thread.sleep(1000);
+shadow1.findElement(By.cssSelector("#nested-shadow-element"));
+
+
+
+//3) This Element is inside 3 nested shadow DOM.
+
+SearchContext shadow0 = driver.findElement(By.cssSelector("#shadow-root")).getShadowRoot();
+Thread.sleep(1000);
+
+SearchContext shadow1 = shadow0.findElement(By.cssSelector("#inner-shadow-dom")).getShadowRoot();
+Thread.sleep(1000);
+
+SearchContext shadow2 = shadow1.findElement(By.cssSelector("#nested-shadow-dom")).getShadowRoot();
+Thread.sleep(1000);
+
+shadow2.findElement(By.cssSelector("#multi-nested-shadow-element"));
+
+
+Handle svg elements
+------------------------
+//*[name()='path' and contains(@d,'M256,302c8')]
+//a[normalize-space()='']//*[name()='svg']
+//*[name()='path' and contains(@d,'M256.264,0')]
+
+
+
+More videos
+---------
+1)Shadow dom
+https://youtu.be/bpzyjNZ0jaw
+
+
+2) SVG Elements, iFrames and Shadow DOM Elements
+https://youtu.be/v-6JerEgyMM
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-40
+--------
+Apache poi  library  
+
+dependencies in pom.xml
+------------------------------
+	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi</artifactId>
+	    <version>5.2.5</version>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi-ooxml</artifactId>
+	    <version>5.2.5</version>
+	</dependency>
+
+Excel File--->Workbook--->Sheets--->Rows----Cells
+
+FileInputStream - reading
+FileOutputStream   - writing
+
+XSSFWorkbook    --- workbook
+XSSFSheet   -- sheet
+XSSFRow   - row
+XSSFCell  -- cell
+
+1) reading data from excel
+2) writing data in to excel.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+Day-41
+--------
+
+
+Data Driven testing
+--------------------
+
+1) Functionality ( Test case)
+2) Prepare test data in excel
+3) develope automation script
+
+Reading properties file
+----
+
+
+Assignment
+-----------
+Data driven testing
+
+https://www.cit.com/cit-bank/resources/calculators/certificate-of-deposit-calculator
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-42
+--------
+TestNG -Test New Generation 
+
+java based unit testing tool.
+
+Advantages:
+-----
+1) Test cases & test suites
+2) Grouping of test cases.
+3) Prioritize
+4) Parameterization
+5) parallel testing
+6) Reports
+
+TestNG configuration
+-----------------
+1) Install testng in eclipse
+2) add testng library to build path / add testng dependency in pom.xml
+
+
+@Test   - annotation
+
+
+
+
+1) TestNG execute test methods based on alphabetical order.
+2) @Test(priority=num)  controls the order of execution.
+3) Once you provide priorty to the test methods, then order of methods is not considered.
+4) priorities can be random numbers( no need to have consecutive numbers)
+5) If you dont provide priority then default value is Zero (0).
+6) If the priorities are same then again execute methods in alphabetical order.
+7) Negitive values are allowed in priority.
+8)  TestNG execute test methods only if they are having @Test annotation.
+
+execute test cases using testng xml file
+
+test xml file
+------
+1) generate automatically
+2) manually
+
+
+Test suite--->test cases----->test steps
+xml file---->classes----> Test methods
+
+2 things achived through xml
+-------
+1) executed group of test cases as a 1 suite
+2) we can generate testng reports ( default)
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-43
+--------
+Annotations
+----
+
+@Test
+
+@BeforeMethod
+@AfterMethod
+
+@BeforeClass
+@AfterClass
+
+@BeforeTest
+@AfterTest
+
+@BeforeSuite
+@AfterSuite
+
+TC1
+----
+1) Login -- @BeforeMethod
+2) Search --->  @Test
+3) Logout  ---@AfterMethod
+4) Login
+5) Adv search  ---@Test
+6) Logout
+
+
+TC2
+----
+1) Login --- @BeforeClass
+2) Search --- @Test
+3) Adv search   --- @Test
+4) Logout  -- -AfterClass
+
+xml
+-----
+
+<suite name="mysuite>
+	<test name="mytest1>
+		<classes>
+			<class name="xyz"/>
+		<classes>
+	</test>
+
+	<test name="mytest2>
+		<classes>
+			<class name="abc"/>
+		<classes>
+	</test>
+
+<suite>
+
+Assertion - validation point
+
+
+2 kinds of assertions
+----------
+1) Hard assertions
+2) Soft assertions
+
+
+
+Hard assertions
+----
+we can access from "Assert" class
+methods are static
+* if hard assertion failed then rest of the statements will not be executed.
+
+
+software assertion
+------
+we can access though "SoftAssert"  object
+
+SoftAssert sa=new SoftAssert();
+sa.assertTrue()
+
+if soft assertion got failed then rest of the statemetns still execute
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-44
+---------
+dependency methods
+
+
+openapp
+login
+search
+advsearch
+logout
+
+
+dependsOnMethods= {"method name1","method name2",....}
+
+
+grouping
+--------------
+
+class1 - m1 m2 m3...
+class2 - m4, m5 ,m6...
+class3 -- m7,m8,m9....
+---
+
+sanity
+regression
+functional
+
+
+loginByfacebook - sanity
+loginby emial  -sanity
+login by twitter  -sanity
+
+signupbyfacebook -regression
+signupbytwitter  -regression
+signupbyemail   - regression
+
+paymentinrupees   - sanity, regression (functional)
+paymentindollars   - sanity, regression  (functional)
+
+1) all sanity tests
+2) all regression tests
+3) all sanity but not regression
+4) all regression but not sanity
+5) all methods which are belongs to both sanity & regression
+
+@Test
+----
+priority
+dependsOnMethods
+groups
+etc....
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Day-45
+-------
+Parameterization
+-----
+1) @DataProvider  -- data driven testing
+
+2) using xml file -- parallel testing
+
+
+parallel testing using xml file
+-----------------
+
+step1) created test case
+step 2) create xml file then run test case through xml
+step3 ) passed browser name, url as parameters from xml file to setup() method
+step4 ) execute test case on chrome,firefox & Edge (serial execution)
+step5 ) execute test case on chrome,firefox & edge ( parallel execution)
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-46
+--------
+TestNG Listners
+----
+
+1) create test case
+2) create listener class
+3) create xml file and include both test case & listener class
+
+
+2 ways to implement listener class
+------------
+Method1
+------
+class myListner implements ITestListener
+{
+
+}
+
+Method2
+-------------
+class myListener extends TestListenerAdapter
+{
+
+}
+
+
+Extent report
+-------
+ExtentSparkReporter
+ExtentReports
+ExtentTest
+
+
+maven dependency
+--------------------
+
+<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+	<dependency>
+	    <groupId>com.aventstack</groupId>
+	    <artifactId>extentreports</artifactId>
+	    <version>5.1.1</version>
+	</dependency>
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-47
+------
+Page Object model
+-----------------
+
+Test case
+----
+locators
+test methods ----code---validations+Actions
+
+2 appraoches to create page object classes
+---------------------------
+1) without using PageFactory
+2) using PageFactory
+-----------------
+
+
+WebElement usertxt=driver.findElement(By.xpath("//input[@placeholder='Username']");
+
+
+By loc=By.xpath("//input[@placeholder='Username'];
+driver.findElement(loc).sendKeys("xyz")
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Automation Framework
+--------------------
+we organize automation project files/foldes in structured manner.
+
+Objectives
+------------
+1) Re-usubility
+2) Maintainability
+3) Readability
+
+
+Types of frameworks
+---------------------
+1) Built-in
+	Ex: testng, junit, cucumber, robot etc..
+
+2) customized(user defined)
+	modular framework, data driven, keywork driven, hybrid driven etc..
+
+
+Phases/stages
+-------------
+1) Analysing AUT
+
+	- Number of pages
+	- what are all elements / how/ type
+        - what to automate / what we cannot automate
+
+
+2) choose test cases for automation
+
+100 Test cases -----90 automatable  10 cannot automate
+100% automation
+
+
+1)sanity test cases - P1
+2) data driven test cases/re-tests   - P2
+3) Regression test cases -P3
+4) Any other cases - P4
+
+3) Design & Developement of framework
+
+4) Execution - local, remotely
+
+5) Maintenace
+
+
+
+E-commerce domain
+------------------
+
+1) Frontent operations   ( customers/users)
+
+	- register an account
+	- login
+	- search for the product
+	- add/edit/delete products from cart
+	- order products
+	- reviews
+	etc....
+
+
+2) Backend operations (admins/backend teams)
+	- products
+	- customers
+	- orders
+	- store
+etc..
+
+
+opencart app:
+https://tutorialsninja.com/demo/
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Day-49
+--------
+
+http://localhost/opencart/upload/
+
+1) Test case: Account Registration
+1.1: Create BasePage under "pageObjects" which includes only constructor. This will be invoked by every Page Object Class constructor (Re-usability).
+1.2: Create Page Object Classes for HomePage, RegistrationPage  under pageObjects package. (These classes extends from BasePage).
+1.3: Create AccountRegistrationTest under "testCases"
+1.4: Create BaseClass under testBase package and copy re-usable methods.
+1.5: Create re-usable methods to generate random numbers and strings in BaseClass. 
+
+
+Add required dependencies in pom.xml (Please check links below) 
+-----------
+https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java https://mvnrepository.com/artifact/org.apache.poi/poi https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api https://mvnrepository.com/artifact/commons-io/commons-io https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 https://mvnrepository.com/artifact/org.testng/testng https://mvnrepository.com/artifact/com.aventstack/extentreports 
+------------------------------------------------------------------------------------------------------------------------------------------------
+Day-50
+--------
+Logging - record all the events in the form of text.
+
+Log Levels - All < Trace < Debug < Info < Warn < Error < Fatal < Off 
+
+
+Appenders - where to generate logs (Console/File)
+Loggers  - what type of logs generate (All < Trace < Debug < Info < Warn < Error < Fatal < Off)
+
+
+import org.apache.logging.log4j.LogManager;  //Log4j
+import org.apache.logging.log4j.Logger;  //Log4j
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+Day-51
+--------
+Login Test
+Login Data Driven test
+--------------------------------------------------------------------------------------------------------------------------------------------
+Day-52
+--------
+Grouping
+Extent reports
+Run failure test cases
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-53
+-------
+
+grid URL
+
+http://192.168.1.6:4444
+http://localhost:4444
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-54
+------
+
+Docker  - containerization
+
+basic commands
+----------
+docker version
+docker -v
+docker info
+docker --help
+docker login
+
+
+images commands
+-------
+docker images
+docker pull ubuntu
+docker rmi  <mage id>
+
+container commands
+---------------
+docker ps
+docker run <<image name>>
+docker start <<container id>>
+docker stop <<container id>>
+docker rm <container id>
+
+system commands
+---------
+docker stats
+docker system df
+docker system prune -f
+
+
+
+3 images
+-------
+1) hub
+2) linux-firefox
+3) linux-chrome
+
+docker network create grid
+
+docker run -d -p 4442-4444:4442-4444 --net grid --name selenium-hub selenium/hub
+
+docker run -d --net grid -e SE_EVENT_BUS_HOST=selenium-hub -e SE_EVENT_BUS_PUBLISH_PORT=4442 -e 
+SE_EVENT_BUS_SUBSCRIBE_PORT=4443 selenium/node-chrome
+
+docker run -d --net grid -e SE_EVENT_BUS_HOST=selenium-hub -e SE_EVENT_BUS_PUBLISH_PORT=4442 -e 
+SE_EVENT_BUS_SUBSCRIBE_PORT=4443 selenium/node-firefox
+
+
+
+http://localhost:4444/ui/
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Day-55
+-------
+
+Run Tests using Maven pom.xml, Command Prompt & run.bat file. 
+----------------------------------------------------------------
+
+pom.xml
+----------
+dependencies --- download required dependency jar for project
+plugins  ---> to compile and run the project
+
+1) maven compiler plugin
+2) maven surefire plugin
+
+
+Install maven OS level
+--------------------
+https://maven.apache.org/download.cgi
+
+C:\Program Files\apache-maven-3.9.6\bin
+** configure the maven path in environment variable.
+
+open command prompt  -->   mvn -version
+
+
+Configure Maven path in Mac OS
+---------------------------
+In terminal, type echo $SHELL
+In terminal, type vi ~/.zshrc
+Press i for insert and type export MAVEN_HOME=$(/usr/libexec/maven_home)
+Press esc :wq
+
+In the terminal: 
+
+echo $MAVEN_HOME
+mvn -version
+
+
+----------------------------------------
+Git & GitHub
+----------------------------------------
+
+Project location:
+-------------------
+C:\Automation\myworkspaces\seleniumwebdriver\OpencartV121
+
+cd C:\Automation\myworkspaces\seleniumwebdriver\OpencartV121
+mvn test
+
+Pre-requisites
+-------------------
+1) Git installation
+2) create an account with GitHub & create remote repository then capture url
+	Account creation:  https://github.com/signup?source=login
+	repository url:  https://github.com/pavanoltraining/OpencartV121.git
+
+
+
+
+Git & GitHub workflow
+--------------------
+
+Round1
+----
+1)  create a new local repository  ( one time)
+git init
+
+
+2) provided user info to git repo. (one time)
+ 
+	git config --global user.name "your name"
+    	git config --global user.email "your email"
+
+
+3) Adding files/folders to staging/indexing
+    git add -A         -->add all the files and folders to staging
+    git add filename
+    git add *.java
+    git add foldername
+
+4) Commit the code into Local(git) repository
+	git commit -m "commit message"
+
+5) connect local repository with remote rep.(One time)
+	git remote add origin "https://github.com/pavanoltraining/OpencartV121.git"
+  
+
+6) push the code into remote repository.
+   	git push origin master
+
+token: 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   (**Create your own Token)
+
+
+
+Round2
+------
+1) git add -A
+2) git commit -m "commit message"
+3) git push origin master
+
+Pull the files from remote repository
+---------------
+git pull "https://github.com/pavanoltraining/OpencartV121.git"
+
+
+
+clone new repository to local system
+-------------------------
+git clone "https://github.com/pavanoltraining/testrepo.git"
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Day-57
+Cucumber
+----------
+
+TDD - Test Driven Development
+
+Ex: JUnit/TestNG (for Java), NUnit (for .NET), PyTest (for Python), Jasmine (for JavaScript)
+
+
+BDD - Behavioral Driven Development
+
+Ex:	Cucumber (supports multiple languages like Java, Ruby, JavaScript, etc.)
+	SpecFlow (for .NET)
+	Behave (for Python)
+	JBehave (for Java)
+
+team
+----
+stake holders/customer (non-tech)
+product manager (non-tech)
+project manager - (non-tech)
+tester - tech
+developer - tech
+scrum master (non-tech)
+
+BDD, or Behavior-Driven Development, emphasizes collaboration between technical and non-technical stakeholders 
+through the use of a common language to describe the behavior of a system. 
+It focuses on writing tests in a human-readable format, typically using a "given-when-then" structure, which helps clarify requirements and expectations.
+
+
+Cucumber
+-----------
+1) Feature file
+2) step definitions file
+3) test runner file
+
+Feature file contains scenarios & Steps.
+
+Gherkin - language contains keywords..
+
+Scenario
+Given
+When
+Then
+And
+
+
+Pre-condition  - Given
+Actions  - When
+Validations  - Then
+
+
+Login.feature
+------------
+Feature : User login
+	Scenario: Succesful login
+		Given the user opens application
+		And  the user navigate to login page
+		When the user entered valid user name and valid password
+		And the user clicked on submit button.
+		Then the user should see My account page.
+		And the user name should be displayed on my account page
+
+
+Step definition file contains methods which are represent to steps in feature file
+
+testRunner class  ---> feature file, steps, report etc...
+
+
+
+Cucumber project setup
+--------------
+1) Install cucumber eclipse plugin ( From eclipse market place)
+2) Create Maven project
+3) Update pom.xml with required dependencies.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Cucumber framework
+-------------
+data driven testing
+--
+-> Scenario Outline Examples
+
+Data driven testing using Excel sheet
+-----
+Test data
+Scenario Outline
+DataReader
+
+passing multiple parameters nto one step using data table concept...
+
+Run only failure screnarios..
+
+run scenarios on grid..
+
+run scenarios through pom.xml
+
+run scenarios through maven command prompt
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+day-60
+Cucumber framework
+-------------------
+
+workspace --> staging/indexing--->git(local repo)---->GitHub(remote repo)
+
+Round 1
+------------
+1) create an empty remote repository and get the url
+https://github.com/pavanoltraining/opencart_cucumber.git
+
+2) create a local repository
+
+   Right on Project-->Team-->Share Project-->Create Repository-->Finish
+
+3) Adding files to index/staging
+
+  Right on Project-->Team-->Add to index
+
+
+4) Commiting files to local repo(git)
+
+Right on Project--->Team-->commit-->Provided commit message-->click on commit button.
+
+5) Push the files to remote/github repository
+	Team-->Push Branch Master     
+	Provide destination repository details in the form.......
+
+
+Remote name: origin
+	URI:  https://github.com/pavanoltraining/opencart_cucumber.git
+	Host: github.com
+	Repository path: /pavanoltraining/opencart_cucumber.git
+
+	User: github email
+	Password: <<token password>>
+Click on Preview-->Click on Preview-->Click on Push-->Close
+
+
+Round 2 : Pull from Git Hub
+------------------------
+Team--> Pull  (first option)
+
+
+
+
+
+Cloning the existing repository
+-----------
+https://github.com/pavanoltraining/testing.git
+
+
+import --> Git-->Projects from Git--->Clone URL-->provide URI -->
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
